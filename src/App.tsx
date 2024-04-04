@@ -38,7 +38,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div> */}
-      <Button type="button" onClick={handleClick}> Eliminar todas</Button>
+      <Button type="button" onClick={handleClick} className="bg-zinc-800 text-gray-200 hover:bg-zinc-900"> Eliminar todas</Button>
       <Footer msg="Fran Gregori Tandazo" className="pt-24" />
     </>
   )

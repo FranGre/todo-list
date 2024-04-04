@@ -25,19 +25,20 @@ export default function FormTodo() {
         <>
             <form onSubmit={handleSubmit(onSubmit)} className="py-12">
 
-                <div className="block">
+                <div className="block mb-7">
                     <label>Title</label>
-                    <input {...register("title")} className="block py-2 px-4 w-full" />
+                    <input {...register("title")} className="block mt-2 py-2 px-4 w-full border border-slate-800	" />
                     {errors.title && <small className="text-red-500">{errors.title.message}</small>}
                 </div>
 
                 <div className="block">
                     <label>Description</label>
-                    <textarea {...register("description")} className="block resize-none rounded-md w-full xs:resize xs:w-screen" />
+                    <textarea {...register("description")} 
+                    className="block mt-2 py-2 px-4 resize-none rounded-md w-full xs:resize xs:w-screen border border-slate-800	" />
                     {errors.description && <small className="text-red-500">{errors.description.message}</small>}
                 </div>
 
-                <Button type="submit" className="mt-7 bg-green-600 hover:bg-green-700 text-gray-950"> Save</Button>
+                <Button type="submit" className="mt-7 bg-green-600 hover:bg-green-700 text-gray-200"> Save</Button>
             </form>
         </>
     )

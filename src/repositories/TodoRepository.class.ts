@@ -26,13 +26,24 @@ export default class TodoRepository {
         localStorage.setItem(this.table, JSON.stringify(todos))
     }
 
+    update(todo: Todo) {
+        let todos: Todo[] = this.getAll()
+
+        todos = todos.map(item => {
+            if (item.id === todo.id) return todo
+            return item
+        })
+
+        localStorage.setItem(this.table, JSON.stringify(todos))
+    }
+
     remove() {
         if (this.getAll()) {
             localStorage.removeItem(this.table)
         }
     }
 
-    removeById(id:string){
+    removeById(id: string) {
         const todos: Todo[] = this.getAll()
         const todosFiltered: Todo[] = todos.filter(todo => todo.id !== id)
 
