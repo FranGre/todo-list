@@ -13,6 +13,7 @@ interface TodoState {
 
 export default create<TodoState>()((set) => ({
     todos: [],
+    
     loadTodos: () => {
         const repository = new TodoRepository()
         const todos = repository.getAll()

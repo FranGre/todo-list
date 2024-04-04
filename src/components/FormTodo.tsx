@@ -18,7 +18,7 @@ export default function FormTodo() {
 
     const todoRepository = new TodoRepository()
 
-    const onSubmit = (data) => {
+    const onSubmit = (data: any) => {
         const todo: Todo = { id: crypto.randomUUID(), ...data, isDone: false }
         todosStore.save(todo)
         todoRepository.save(todo)
