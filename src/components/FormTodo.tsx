@@ -4,6 +4,7 @@ import * as yup from "yup"
 import Todo from "../interfaces/Todo"
 import TodoRepository from "../repositories/TodoRepository.class"
 import Button from "./Button"
+import useTodosStore from "../store/useTodosStore"
 
 const schema = yup.object({
     title: yup.string().required(),
@@ -13,10 +14,13 @@ const schema = yup.object({
 export default function FormTodo() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm({ resolver: yupResolver(schema) })
 
+    const todosStore = useTodosStore()
+
     const todoRepository = new TodoRepository()
 
     const onSubmit = (data) => {
         const todo: Todo = { id: crypto.randomUUID(), ...data, isDone: false }
+        todosStore.save(todo)
         todoRepository.save(todo)
         reset()
     }

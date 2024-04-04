@@ -1,37 +1,36 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import Todo from "../interfaces/Todo"
 import TodoRepository from "../repositories/TodoRepository.class"
+import useTodosStore from "../store/useTodosStore"
+
 import Button from "./Button"
 
 import bin from '../assets/bin.svg'
 
 export default function Todos() {
-    const [todos, setTodos] = useState<Todo[]>([])
+    const todosStore = useTodosStore()
 
     const todoRepository = new TodoRepository()
 
     useEffect(() => {
-        setTodos(todoRepository.getAll())
+        todosStore.loadTodos()
     }, [])
 
     function changeStatus(todo: Todo) {
-        todo.isDone = !todo.isDone
-        setTodos(todos.map(item => {
-            if(item.id === todo.id) return todo
-            return item
-        }))
-        console.log(todo)
-        todoRepository.update(todo)
+        const todoUpdated = { ...todo }
+        todoUpdated.isDone = !todoUpdated.isDone
+
+        todosStore.update(todoUpdated)
+        todoRepository.update(todoUpdated)
     }
 
     function remove(todo: Todo) {
-        console.log(todo)
-        setTodos(todos.filter(item => item.id !== todo.id))
-        todoRepository.removeById(todo.id)
+        todosStore.remove(todo.id)
+        todoRepository.remove(todo.id)
     }
 
-    if (!todos || todos.length === 0) {
+    if (!todosStore.todos || todosStore.todos.length === 0) {
         return (<small>No hay tareas</small>)
     }
 
@@ -39,7 +38,7 @@ export default function Todos() {
         <>
             <ul className="rounded-lg border border-zinc-950">
                 <li className="p-4 bg-cyan-700 rounded-t-lg ">Tareas</li>
-                {todos.map(todo => (
+                {todosStore.todos.map(todo => (
                     <li key={todo.id} className="py-4 px-6 flex justify-between items-center">
                         {todo.title} | {todo.description}
                         <Button type="button" onClick={() => changeStatus(todo)}

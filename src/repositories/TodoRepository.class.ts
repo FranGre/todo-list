@@ -37,13 +37,13 @@ export default class TodoRepository {
         localStorage.setItem(this.table, JSON.stringify(todos))
     }
 
-    remove() {
+    clear() {
         if (this.getAll()) {
             localStorage.removeItem(this.table)
         }
     }
 
-    removeById(id: string) {
+    remove(id: string) {
         const todos: Todo[] = this.getAll()
         const todosFiltered: Todo[] = todos.filter(todo => todo.id !== id)
 

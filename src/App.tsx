@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -7,14 +6,17 @@ import Todos from './components/Todos'
 import TodoRepository from './repositories/TodoRepository.class'
 import Button from './components/Button'
 import Footer from './components/Footer'
+import useTodosStore from './store/useTodosStore'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   const todoRepository = new TodoRepository()
 
-  function handleClick() {
-    todoRepository.remove()
+  const todosStore = useTodosStore()
+
+  function clear() {
+    todosStore.clear()
+    todoRepository.clear()
   }
 
   return (
@@ -38,7 +40,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div> */}
-      <Button type="button" onClick={handleClick} className="bg-zinc-800 text-gray-200 hover:bg-zinc-900"> Eliminar todas</Button>
+      <Button type="button" onClick={clear} className="bg-zinc-800 text-gray-200 hover:bg-zinc-900"> Eliminar todas</Button>
       <Footer msg="Fran Gregori Tandazo" className="pt-24" />
     </>
   )
