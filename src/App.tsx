@@ -19,7 +19,7 @@ function App() {
 
   return (
     <>
-      <h1>Todo List</h1>
+      <h1 className='mb-16'>Todo List</h1>
       <Todos />
       <FormTodo />
       <Button type="button" onClick={clear} className="bg-zinc-800 text-gray-200 hover:bg-zinc-900"> Eliminar todas</Button>
