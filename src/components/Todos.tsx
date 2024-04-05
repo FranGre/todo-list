@@ -1,12 +1,10 @@
 import { useEffect } from "react"
-
 import Todo from "../interfaces/Todo"
 import TodoRepository from "../repositories/TodoRepository.class"
 import useTodosStore from "../store/useTodosStore"
-
 import Button from "./Button"
-
 import bin from '../assets/bin.svg'
+import { toast, Slide } from 'react-toastify'
 
 export default function Todos() {
     const todosStore = useTodosStore()
@@ -28,6 +26,17 @@ export default function Todos() {
     function remove(todo: Todo) {
         todosStore.remove(todo.id)
         todoRepository.remove(todo.id)
+        toast.success('Éxito al eliminar la tarea', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          })
     }
 
     if (!todosStore.todos || todosStore.todos.length === 0) {

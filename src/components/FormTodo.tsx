@@ -5,6 +5,7 @@ import Todo from "../interfaces/Todo"
 import TodoRepository from "../repositories/TodoRepository.class"
 import Button from "./Button"
 import useTodosStore from "../store/useTodosStore"
+import {toast, Slide} from 'react-toastify'
 
 const schema = yup.object({
     title: yup.string().required(),
@@ -22,6 +23,17 @@ export default function FormTodo() {
         const todo: Todo = { id: crypto.randomUUID(), ...data, isDone: false }
         todosStore.save(todo)
         todoRepository.save(todo)
+        toast.success('Éxito al crear la tarea', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Slide,
+          })
         reset()
     }
 
